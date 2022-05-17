@@ -4,7 +4,7 @@ describe('timerActions', () => {
   describe('given that the method withTimeout is called', () => {
     let callback;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       jest.useFakeTimers();
       jest.spyOn(global, 'setTimeout');
       jest.spyOn(console, 'log');
@@ -13,7 +13,7 @@ describe('timerActions', () => {
       jest.runAllTimers();
     });
       
-    it('then should execute a setTimeout method', async () => {
+    it('then should execute a setTimeout method', () => {
       expect(setTimeout).toHaveBeenCalledTimes(1);
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
     });
