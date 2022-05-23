@@ -28,13 +28,16 @@ describe('asyncActions', () => {
     let result;
 
     describe('when method fetchData is called', () => {
-      beforeEach(() => {
-        fetch.mockClear();
-      });
-
       describe('and succeeds', () => {
-        it('then return an array', async () => {
+        beforeEach(async () => {
           result = await asyncActions.fetchData(URL);
+        });
+
+        it('then call method fetch', () => {
+          expect(fetch).toHaveBeenCalled();
+        });
+
+        it('then return an array', () => {
           expect(result).toEqual(returnedMock);
         });
       });
@@ -51,7 +54,6 @@ describe('asyncActions', () => {
     describe('when method fetchAndStore is called', () => {
       describe('and succeeds', () => {
         beforeEach(async () => {
-          fetch.mockClear();
           result = await asyncActions.fetchAndStore(URL);
         });
 
@@ -68,22 +70,14 @@ describe('asyncActions', () => {
       });
 
       describe('and fails', () => {
-        beforeEach(async () => {
-          fetch.mockClear();
+        beforeEach(() => {
+          fetch.mockRejectedValue('Error');
+          asyncActions.fetchData = jest.fn();
+          asyncActions.fetchData.mockRejectedValue('Error');
         });
 
         it("then return an 'error'", async () => {
-          fetch.mockRejectedValue('Error');
           result = await asyncActions.fetchAndStore(URL);
-          // expect(result).toEqual('Error');
-          expect(console.log).toHaveBeenCalledWith('comments', '"Error"');
-        });
-      });
-
-      describe('and fails', () => {
-        it("then return an 'error'", async () => {
-          fetch.mockRejectedValue('Error');
-          result = await asyncActions.fetchData(URL);
           expect(result).toEqual('Error');
         });
       });

@@ -12,21 +12,20 @@ describe('timerActions', () => {
       timerActions.withTimeout(callback);
       jest.runAllTimers();
     });
-      
-    it('then should execute a setTimeout method', () => {
-      expect(setTimeout).toHaveBeenCalledTimes(1);
+
+    it('then execute a setTimeout method', () => {
       expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
     });
 
-    it('then should call the callback', () => {
+    it('then call the callback', () => {
       expect(callback).toHaveBeenCalled();
     });
 
-    it('then should call the first console.log', () => {
+    it('then call the first console.log', () => {
       expect(console.log).toHaveBeenCalledWith('We in sync bois!');
     });
 
-    it('then should call the console.log which is inside the setTimeout', () => {
+    it('then call the console.log which is inside the setTimeout', () => {
       expect(console.log).toHaveBeenCalledWith('Where are we now?');
     });
   });
