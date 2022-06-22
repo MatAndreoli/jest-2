@@ -27,6 +27,10 @@ describe('asyncMockActions', () => {
     });
     let result;
 
+    it('Then validate url', () => {
+      expect(asyncMockActions.url).toEqual('http://localhost:3005/comments');
+    });
+
     describe('when method fetchData is called', () => {
       beforeEach(() => {
         fetch.mockClear();
